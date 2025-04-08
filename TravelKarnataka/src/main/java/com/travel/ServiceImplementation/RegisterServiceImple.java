@@ -23,4 +23,9 @@ public class RegisterServiceImple implements RegisterService {
 		return repo.existsByUserEmail(email);	
 	}
 
+	@Override
+	public RegisterEntity getUser(String email) {
+		return repo.findByEmail(email).orElse(null);
+	}
+
 }

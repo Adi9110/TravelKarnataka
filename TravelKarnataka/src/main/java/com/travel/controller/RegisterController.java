@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.travel.entity.RegisterEntity;
 import com.travel.service.RegisterService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/travel")
@@ -52,6 +54,27 @@ public class RegisterController {
 			model.addAttribute("msg", "User already exists with this email.");
 			return "Signup";
 		}
+	}
+	
+	@PostMapping("/login")
+	public String userLogin(@ModelAttribute RegisterEntity user , Model model ) {
+		
+		RegisterEntity logUser=service.getUser(user.getUserEmail());
+		
+		if(logUser==null) {
+			model.addAttribute("msg", "user not found");
+			return "login";
+		}
+		
+		if(logUser.getUserPassword()!=user.getUserPassword()) {
+			model.addAttribute("msg", "invalid credential");
+			return "login";
+		}
+		
+		model.addAttribute("uname", logUser.getUserName());
+		model.addAttribute("msg", "login successfull");
+		
+		return "home";
 	}
 	
 	
