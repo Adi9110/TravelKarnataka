@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Travel Login</title>
+  <title>Travel Sign Up</title>
   <style>
     * {
       margin: 0;
@@ -64,7 +64,7 @@
       padding: 20px;
     }
 
-    .login-form {
+    .signup-form {
       background-color: rgba(255, 255, 255, 0.7);
       padding: 40px;
       border-radius: 15px;
@@ -75,26 +75,16 @@
       gap: 15px;
     }
 
-    .login-form input {
+    .signup-form input {
       padding: 10px;
       border: 1px solid black;
       border-radius: 8px;
       font-size: 14px;
     }
 
-    .login-form .forgot-password {
-      text-align: right;
-      font-size: 12px;
-    }
-
-    .login-form .forgot-password a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    .login-form button[type="submit"] {
+    .signup-form button[type="submit"] {
       padding: 12px;
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 8px;
@@ -102,18 +92,12 @@
       font-weight: bold;
     }
 
-    .login-form .divider {
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .create-account {
+    .signup-form .login-link {
       font-size: 13px;
       text-align: center;
     }
 
-    .create-account a {
+    .signup-form .login-link a {
       color: #007bff;
       text-decoration: none;
       font-weight: bold;
@@ -146,7 +130,7 @@
         order: 1;
       }
 
-      .login-form {
+      .signup-form {
         width: 100%;
         max-width: 350px;
         margin: 0 auto;
@@ -170,8 +154,8 @@
         font-size: 14px;
       }
 
-      .login-form input, 
-      .login-form button {
+      .signup-form input, 
+      .signup-form button {
         font-size: 13px;
       }
     }
@@ -180,21 +164,21 @@
 <body>
   <div class="container">
     <div class="left-section">
-      <h1><span style="font-size: 30px;">TRAVEL</span> and</h1>
-      <h2>EXPLORE<br />HORIZONS</h2>
-      <p class="subtitle">Where Your Dream Destinations Become Reality.</p>
-      <p class="description">Embark on a journey where every corner of this State is within your reach.</p>
+      <h1><span style="font-size: 30px;">TRAVEL</span> with us</h1>
+      <h2>START YOUR<br />JOURNEY</h2>
+      <p class="subtitle">Create your account and discover new destinations.</p>
+      <p class="description">Your dream trip is just a few steps away. Sign up and explore the unseen beauty of the world.</p>
     </div>
 
     <div class="right-section">
-      <form class="login-form" th:action="@{/login}" th:object="${user}" method="post">
-        <input type="email" placeholder="Enter your email" th:field="*{email}" required />
+      <form class="signup-form" th:action="@{/register}" method="post" th:object="${user}">
+        <input type="text" placeholder="Full Name" th:field="*{name}" required />
+        <input type="email" placeholder="Email" th:field="*{email}" required />
         <input type="password" placeholder="Password" th:field="*{password}" required />
-        <div class="forgot-password"><a th:href="@{/forgot-password}">Forgot password?</a></div>
-        <button type="submit">SIGN IN</button>
-        <div class="divider">or</div>
-        <div class="create-account">
-          Are you new? <a th:href="@{/signup}">Create an Account</a>
+        <input type="tel" placeholder="Phone Number" th:field="*{phone}" required />
+        <button type="submit">SIGN UP</button>
+        <div class="login-link">
+          Already have an account? <a th:href="@{/login}">Sign In</a>
         </div>
       </form>
     </div>
