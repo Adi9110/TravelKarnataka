@@ -187,14 +187,14 @@
     </div>
 
     <div class="right-section">
-      <form class="login-form" th:action="@{/login}" th:object="${user}" method="post">
-        <input type="email" placeholder="Enter your email" th:field="*{email}" required />
-        <input type="password" placeholder="Password" th:field="*{password}" required />
+      <form class="login-form" action="login"  method="post">
+        <input type="email" placeholder="Enter your email" name = "userEmail" required />
+        <input type="password" placeholder="Password" name = "userPassword" required />
         <div class="forgot-password"><a th:href="@{/forgot-password}">Forgot password?</a></div>
         <button type="submit">SIGN IN</button>
         <div class="divider">or</div>
         <div class="create-account">
-          Are you new? <a th:href="@{/signup}">Create an Account</a>
+          Are you new? <a href="signup">Create an Account</a>
         </div>
       </form>
     </div>
