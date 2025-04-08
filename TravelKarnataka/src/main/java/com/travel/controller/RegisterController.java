@@ -25,6 +25,11 @@ public class RegisterController {
 		return "home";
 	}
 	
+	@GetMapping("/login")
+	public String openLoginPAge() {
+		return "login";
+	}
+	
 	@GetMapping("/signup")
 	public String openSignupPage() {
 		return "signup";

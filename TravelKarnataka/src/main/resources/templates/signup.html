@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
     .container {
       display: flex;
       height: 100vh;
-      background: url('https://extramileproject.com/wp-content/uploads/2023/01/thenmala-munnar-valley-ecotourism-in-kerala-1024x640.jpg') no-repeat center center/cover;
+      background: url('https://i.pinimg.com/736x/21/87/61/2187612930d5d9c7ab072381b77ad4b6.jpg') no-repeat center center/cover;
       filter: brightness(1.1) contrast(1.1) saturate(1.2);
       flex-wrap: wrap;
     }
@@ -27,32 +27,37 @@
     .left-section {
       flex: 1;
       color: white;
-      padding: 60px;
+      padding: 60px 10px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-top: -80px;
     }
 
     .left-section h1 {
       font-size: 24px;
       letter-spacing: 2px;
       margin-bottom: 20px;
+      color: black;
     }
 
     .left-section h2 {
-      font-size: 48px;
+      font-size: 40px;
       line-height: 1.2;
       margin-bottom: 20px;
+      color: black;
     }
 
     .subtitle {
       font-size: 18px;
       margin-bottom: 10px;
+      color: black;
     }
 
     .description {
       font-size: 16px;
       max-width: 400px;
+      color: black;
     }
 
     .right-section {
@@ -84,7 +89,7 @@
 
     .signup-form button[type="submit"] {
       padding: 12px;
-      background-color: #28a745;
+      background-color: #007bff;
       color: white;
       border: none;
       border-radius: 8px;
@@ -103,12 +108,7 @@
       font-weight: bold;
     }
 
-    @media (max-width: 992px) {
-      .left-section h2 {
-        font-size: 36px;
-      }
-    }
-
+    /* RESPONSIVE STYLES */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -152,6 +152,7 @@
 
       .subtitle, .description {
         font-size: 14px;
+        
       }
 
       .signup-form input, 
@@ -164,21 +165,22 @@
 <body>
   <div class="container">
     <div class="left-section">
-      <h1><span style="font-size: 30px;">TRAVEL</span> with us</h1>
-      <h2>START YOUR<br />JOURNEY</h2>
-      <p class="subtitle">Create your account and discover new destinations.</p>
-      <p class="description">Your dream trip is just a few steps away. Sign up and explore the unseen beauty of the world.</p>
+      <!-- <h1><span style="font-size: 30px;">TRAVEL</span> with us</h1> -->
+      <h1>WANNA TRAVEL AROUND KARNATAKA?</h1>
+      <h2 >CREATE AN ACCOUNT</h2>
+      <p class="subtitle">Start your adventure with us.</p>
+      <p class="description">Sign up now and explore the hidden gems of your dream destinations.</p>
     </div>
 
     <div class="right-section">
-      <form class="signup-form" th:action="@{/register}" method="post" th:object="${user}">
-        <input type="text" placeholder="Full Name" th:field="*{name}" required />
-        <input type="email" placeholder="Email" th:field="*{email}" required />
-        <input type="password" placeholder="Password" th:field="*{password}" required />
-        <input type="tel" placeholder="Phone Number" th:field="*{phone}" required />
+      <form class="signup-form" action="register" method="post">
+        <input type="text" placeholder="Full Name" name="userName" required />
+        <input type="email" placeholder="Email" name="userEmail" required />
+        <input type="password" placeholder="Password" name="userPassword" required />
+        <input type="tel" placeholder="Phone Number" name="userPhone" required />
         <button type="submit">SIGN UP</button>
         <div class="login-link">
-          Already have an account? <a th:href="@{/login}">Sign In</a>
+          Already have an account? <a href="login">Sign In</a>
         </div>
       </form>
     </div>
