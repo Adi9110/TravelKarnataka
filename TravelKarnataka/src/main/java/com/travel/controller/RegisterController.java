@@ -20,17 +20,17 @@ public class RegisterController {
 	private RegisterService service;
 	
 	
-	@GetMapping("app")
+	@GetMapping("/app")
 	public String loadIndex() {
-		return "Home";
+		return "home";
 	}
 	
-	@GetMapping("signup")
+	@GetMapping("/signup")
 	public String openSignupPage() {
-		return "Signup";
+		return "signup";
 	}
 	
-	@PostMapping("register")
+	@PostMapping("/register")
 	public String userRegister(@ModelAttribute RegisterEntity user, Model model) {
 
 		boolean exist = service.checkUser(user.getUserEmail());
