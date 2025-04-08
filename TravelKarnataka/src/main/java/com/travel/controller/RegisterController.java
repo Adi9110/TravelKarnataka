@@ -24,7 +24,7 @@ public class RegisterController {
 	
 	@GetMapping("/app")
 	public String loadIndex() {
-		return "home";
+		return "index";
 	}
 	
 	@GetMapping("/login")

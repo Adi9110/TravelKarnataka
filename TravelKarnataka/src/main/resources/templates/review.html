@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Review</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      background: url('https://i.pinimg.com/736x/17/53/bb/1753bb48e33cea15fdfb4c8d747a7830.jpg') no-repeat center center/cover;
+      flex-wrap: wrap;
+    }
+
+    .left-section {
+      flex: 1;
+      color: black;
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .left-section .description {
+      font-size: 30px;
+      margin-top: -250px;
+      margin-left: 100px;
+    }
+
+    .right-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form input,
+    .form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #f5f5f5;
+    }
+
+    .form textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .form button {
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      gap: .5rem;
+      font-size: 2rem;
+      color: blue;
+    }
+
+    .rating .star {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .rating .star:hover {
+      transform: scale(1.1);
+    }
+
+    .rating .star.active {
+      animation: animate 0.5s ease-in-out forwards;
+    }
+
+    @keyframes animate {
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .left-section,
+      .right-section {
+        width: 100%;
+        padding: 40px 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-section">
+      <p class="description"><b>"Tell us how your trip went! Your feedback helps fellow travelers and makes our tours even better."</b></p>
+    </div>
+
+    <div class="right-section">
+      <form class="form" action="review" method="post">
+        <h2 style="text-align:center;">Rate Your Experience</h2>
+        <div class="rating">
+          <input type="hidden" name="rating">
+          <i class='bx bx-star star' style="--i:1;"></i>
+          <i class='bx bx-star star' style="--i:2;"></i>
+          <i class='bx bx-star star' style="--i:3;"></i>
+          <i class='bx bx-star star' style="--i:4;"></i>
+          <i class='bx bx-star star' style="--i:5;"></i>
+        </div>
+        <input type="text" name="username" th:value="${uname}" readonly placeholder="Your Name">
+        <input type="email" name="userEmail" th:value="${umail}" readonly placeholder="Your Email">
+        <textarea name="opinion" placeholder="Your opinion..." required></textarea>
+        <button type="submit" name="review">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+	const allStar = document.querySelectorAll('.rating .star')
+	const ratingValue = document.querySelector('.rating input')
+
+	allStar.forEach((item, idx)=> {
+		item.addEventListener('click', function () {
+			let click = 0
+			ratingValue.value = idx + 1
+
+			allStar.forEach(i=> {
+				i.classList.replace('bxs-star', 'bx-star')
+				i.classList.remove('active')
+			})
+			for(let i=0; i<allStar.length; i++) {
+				if(i <= idx) {
+					allStar[i].classList.replace('bx-star', 'bxs-star')
+					allStar[i].classList.add('active')
+				} else {
+					allStar[i].style.setProperty('--i', click)
+					click++
+				}
+			}
+		})
+	})
+	</script>
+</body>
+</html>
