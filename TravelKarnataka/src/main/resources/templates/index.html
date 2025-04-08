@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .book-btn {
+            background-color: red;
+            color: white;
+            outline: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            filter: brightness(1.1) contrast(1.1) saturate(1.2);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero .overlay {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            background-color: red;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 32%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 370px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            margin: 20px 0 10px;
+        }
+
+        .card p {
+            padding: 0 15px;
+            font-size: 14px;
+            color: #555;
+            text-align: justify;
+        }
+
+        .cards-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+        }
+
+        .cards-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cards-slider .card {
+            flex: 0 0 auto;
+            width: 300px;
+        }
+
+        /* --about section-- */
+        .about-section {
+            background-color: #ffffff;
+            padding: 60px 20px;
+            color: #333;
+        }
+
+        .about-section .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: #222;
+            font-weight: bold;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* ---testimonial section--- */
+        .testimonial-cards {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 32%;
+            text-align: center;
+        }
+
+        .testimonial-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .testimonial-card h4 {
+            color: #777;
+            font-weight: 600;
+        }
+
+        /* --footer-- */
+
+        .main-footer {
+            background-color: red;
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 40px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .footer-column p {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            margin-top: 15px;
+        }
+
+        .contact-info p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-input {
+            padding: 10px;
+            border: none;
+            width: 70%;
+            font-size: 14px;
+        }
+
+        .newsletter-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                max-width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+
+
+        @media (max-width: 992px) {
+            .testimonial-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .testimonial-card {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-column {
+                flex: 100%;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#explore">Explore</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#testimonial">Testimonials</a></li>
+                    <li><a href="signup">Register</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="signup" class="book-btn">Book Now</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="overlay">
+            <h1>Escape Ordinary<br />Embrace Karnataka's Charm</h1>
+            <button class="cta-btn">BOOK NOW</button>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section" id="explore">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 40px; color: #222; font-weight: bold;">
+            Explore Karnataka With Us
+        </h2>
+
+        <!-- Slider container with full-width buttons -->
+        <div style="position: relative;">
+            <!-- Left button -->
+            <button onclick="scrollCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+               font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
+               border-radius: 0 10px 10px 0; cursor: pointer;">
+                ⟵
+            </button>
+
+            <!-- Right button -->
+            <button onclick="scrollCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+               font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
+               border-radius: 10px 0 0 10px; cursor: pointer;">
+                ⟶
+            </button>
+
+            <!-- Cards container inside scroll wrapper -->
+            <div class="container">
+                <div class="cards-slider" id="cards-slider">
+
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/36/d1/7b/36d17b7470e2ebdd367a930a753ee1b3.jpg"
+                            alt="Mysore Palace" />
+                        <h3>MYSORE PALACE</h3>
+                        <p>Mysore Palace stands as a dazzling symbol of Karnataka’s royal heritage. This grand structure
+                            combines Indo-Saracenic architecture with intricate interiors, stained glass windows, and
+                            rich history. As night falls, the palace glows under thousands of lights, offering a magical
+                            experience. A visit here feels like stepping into a fairytale, making it a must for culture
+                            enthusiasts, photographers, and anyone captivated by regal splendor..</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/d0/3c/7d/d03c7dfe2d5eabe0ad1767b288dc9406.jpg"
+                            alt="Jog Falls" />
+                        <h3>JOG FALLS</h3>
+                        <p>Jog Falls, one of India’s tallest waterfalls, is a spectacular sight where the Sharavathi
+                            River plunges 830 feet into a gorge. Surrounded by lush greenery, it creates a thundering
+                            roar and misty spray that captivates travelers. Best visited during monsoon, it's perfect
+                            for scenic photography, nature walks, and experiencing Karnataka’s raw beauty in its most
+                            powerful form.</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/c2/2f/43/c22f438223214ea5beabc1be59cfa56e.jpg"
+                            alt="Coorg" />
+                        <h3>COORG ESCAPE</h3>
+                        <p>Nestled in the Western Ghats, Coorg is a serene escape known for its rolling coffee
+                            plantations, misty landscapes, and gushing waterfalls. It's a haven for trekkers, nature
+                            lovers, and those seeking peaceful retreats. The region also boasts rich Kodava culture,
+                            flavorful cuisine, and charming homestays. Whether sipping fresh coffee or hiking through
+                            hills, Coorg offers a refreshing break from city life.</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/a5/5d/ad/a55dad6de4452a00d90c9f8d7b82df31.jpg"
+                            alt="Beaches" />
+                        <h3>GOKARNA BEACHES</h3>
+                        <p>Gokarna is a coastal paradise blending spirituality with beachside tranquility. From the
+                            lively Om Beach to the secluded Paradise Beach, every shore offers something unique. It’s a
+                            favorite among backpackers and yoga lovers for its calm vibe. Temples, cafes, and golden
+                            sunsets add to the charm, making Gokarna a peaceful alternative to Goa’s busy beaches.</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/63/4f/c9/634fc9e30c762d78ac8b01a1fb478eb8.jpg"
+                            alt="Hampi" />
+                        <h3>HAMPI RUINS</h3>
+                        <p>Hampi is a surreal landscape of ancient ruins, giant boulders, and timeless temples. Once the
+                            thriving capital of the Vijayanagara Empire, it now invites travelers to explore its
+                            UNESCO-listed wonders. Wander through stone chariots, climb Matanga Hill for sunrise views,
+                            or boat across the Tungabhadra River. Hampi is a treasure trove of history, architecture,
+                            and adventure that feels straight out of a fantasy.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>
+                At <strong>Travel Karnataka</strong>, we believe that every journey should be a story worth telling. Our
+                passion lies in uncovering the hidden gems and celebrated wonders of Karnataka — from the misty hills of
+                Coorg and sun-kissed beaches of Gokarna to the royal heritage of Mysore and ancient ruins of Hampi.
+            </p>
+            <p>
+                We are a locally-rooted travel platform dedicated to crafting immersive and unforgettable experiences.
+                Whether you're an adventure seeker, history buff, or nature lover, we’ve curated journeys that capture
+                the soul of this incredible state. Come explore Karnataka with us — not just as a destination, but as a
+                vibrant, living story waiting to unfold.
+            </p>
+        </div>
+    </section>
+
+    <!-- testimonial Section -->
+    <section class="cards-section" id="testimonial">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 40px; color: #222; font-weight: bold;">
+            What Our Travelers Say About Us
+        </h2>
+
+        <!-- Slider container with full-width buttons -->
+        <div style="position: relative;">
+            <!-- Left button -->
+            <button onclick="scrollCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+               font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
+               border-radius: 0 10px 10px 0; cursor: pointer;">
+                ⟵
+            </button>
+
+            <!-- Right button -->
+            <button onclick="scrollCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+               font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
+               border-radius: 10px 0 0 10px; cursor: pointer;">
+                ⟶
+            </button>
+
+            <!-- Cards container inside scroll wrapper -->
+            <div class="container">
+                <div class="cards-slider" id="cards-slider">
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/f3/e7/c0/f3e7c08717f964391b5aeeabd287dffe.jpg"
+                            alt="Traveler Photo" />
+                        <p>"Our trip to Hampi was a dream come true. Travel Karnataka handled everything perfectly —
+                            from guides to local food experiences."</p>
+                        <h4>— Rahul Menon, Kochi</h4>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/ad/6b/a8/ad6ba822be9fb5d4619051837dfda8e0.jpg"
+                            alt="Traveler Photo" />
+                        <p>"Exploring Chikmagalur with Travel Karnataka was an absolute delight. The coffee trails and
+                            waterfalls were just magical."</p>
+                        <h4>— Sneha Reddy, Hyderabad</h4>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/38/54/a8/3854a8e825bc816e7d7c2caa2c255460.jpg"
+                            alt="Traveler Photo" />
+                        <p>"We had an amazing family vacation in Gokarna. Thanks to Travel Karnataka for recommending
+                            such peaceful and scenic spots."</p>
+                        <h4>— Arjun Desai, Pune</h4>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/67/90/1b/67901b87579417a7c7395023d82f2764.jpg"
+                            alt="Traveler Photo" />
+                        <p>"From historic sites in Mysore to nature treks in the Western Ghats, our journey was packed
+                            with unforgettable moments."</p>
+                        <h4>— Meera Iyer, Chennai</h4>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/30/db/02/30db0247f918d05d855cfc83f831d60c.jpg"
+                            alt="Traveler Photo" />
+                        <p>"Travel Karnataka gave us the best offbeat itinerary for Sakleshpur. Quiet homestays and
+                            misty mornings made it memorable."</p>
+                        <h4>— Vikram Shetty, Mangalore</h4>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <img src="https://i.pinimg.com/736x/e4/da/17/e4da1716140158405b1387a3bd3859a2.jpg"
+                            alt="Traveler Photo" />
+                        <p>"My solo trip to Agumbe was seamless and safe. I’m grateful for the local insights and
+                            support provided throughout."</p>
+                        <h4>— Pooja Kulkarni, Mumbai</h4>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" id="footer">
+        <div class="footer-container">
+            <!-- About Column -->
+            <div class="footer-column">
+                <h3>TRAVEL KARNATAKA</h3>
+                <p>We are passionate about showcasing the beauty of Karnataka. From heritage sites to natural wonders,
+                    we create unforgettable travel experiences.</p>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Popular Tours</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Column -->
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><span style="margin-right: 10px;">📌</span> 123 MG Road, Bangalore, Karnataka</p>
+                    <p><span style="margin-right: 10px;">📞</span> +91 9876543210</p>
+                    <p><span style="margin-right: 10px;">✉️</span> info@travelkarnataka.com</p>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get updates on exciting offers and travel deals.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" class="newsletter-input">
+                    <button type="submit" class="newsletter-btn">GO</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>© 2023 Travel Karnataka. All Rights Reserved. | Designed with 💛 for Karnataka Tourism</p>
+        </div>
+    </footer>
+
+
+    <script>
+
+        //----hero section--------
+        const hero = document.getElementById('hero');
+        const backgrounds = [
+            'https://i.pinimg.com/736x/27/72/58/2772584e328628c59dc4dca1aaf946b4.jpg',
+            'https://i.pinimg.com/736x/dd/ff/dd/ddffddc8d73d749bbe07f4ddd1d2e0d0.jpg',
+            'https://i.pinimg.com/736x/1c/77/36/1c7736d83fa99a155cbaef5b4aa4b4e0.jpg',
+            'https://i.pinimg.com/736x/0b/25/b7/0b25b70c6a25245ca2c61daeccf06e0f.jpg',
+            'https://i.pinimg.com/736x/c4/17/95/c41795e34d1d059b907b31a35659906b.jpg'
+        ];
+        let currentIndex = 0;
+
+        function changeBackground() {
+            hero.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+        }
+
+        // Initial set
+        changeBackground();
+
+        // Change every 5 seconds
+        setInterval(changeBackground, 4000);
+
+        //-------scroll card func-----------
+        function scrollCards(direction) {
+            const container = document.getElementById('cards-slider');
+            const scrollAmount = 320;
+            container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+    </script>
+
+
+</body>
+
+</html>
