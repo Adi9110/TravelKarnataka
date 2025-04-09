@@ -89,7 +89,7 @@
 <body>
 
 <!-- Replace Header include with Thymeleaf fragment -->
-<div th:replace="fragments/header :: header"></div>
+<!-- <div th:replace="fragments/header :: header"></div> -->
 
 <!-- Show alert if status is present -->
 <div th:if="${status}">
@@ -106,9 +106,9 @@
     <br><br>
     <h1 style="color: black;">Contact Us</h1><br>
 
-    <input type="text" placeholder="Name" name="name" th:value="${session.uname}" required><br><br>
+    <input type="text" placeholder="Name" name="name" th:value="name" required><br><br>
 
-    <input type="email" placeholder="Email" name="email" id="email" th:value="${session.email}" required><br><br>
+    <input type="email" placeholder="Email" name="email" id="email" th:value="email" required><br><br>
 
     <input type="tel" placeholder="Phone" name="phone" id="phone"><br><br>
 

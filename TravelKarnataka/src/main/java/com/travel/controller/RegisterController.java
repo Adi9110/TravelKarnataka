@@ -1,6 +1,13 @@
 package com.travel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.travel.entity.RegisterEntity;
 import com.travel.service.RegisterService;
 
+import com.travel.JwtUtil.*;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -20,6 +28,18 @@ public class RegisterController {
 	
 	@Autowired
 	private RegisterService service;
+	public RegisterController(RegisterService service, PasswordEncoder passwordEncoder,
+			AuthenticationManager authenticationManager, JwtService jwtService) {
+		super();
+		this.service = service;
+		this.passwordEncoder = passwordEncoder;
+		this.authenticationManager = authenticationManager;
+		this.jwtService = jwtService;
+	}
+
+	private PasswordEncoder passwordEncoder;
+	private  AuthenticationManager authenticationManager;
+    private JwtService jwtService;
 	
 	
 	@GetMapping("/app")
@@ -41,19 +61,16 @@ public class RegisterController {
 	public String userRegister(@ModelAttribute RegisterEntity user, Model model) {
 
 		boolean exist = service.checkUser(user.getUserEmail());
-		if (!exist) {
-			Integer id = service.saveUser(user);
-			if (id > 0) {
-				model.addAttribute("msg","Registered Successfully with id: " + id);
-				return "Login";
-			} else {
-				model.addAttribute("msg","Registration failed. Please try again.");
-				return "Signup";
-			}
-		} else {
-			model.addAttribute("msg", "User already exists with this email.");
-			return "Signup";
-		}
+		if (!exist) { 
+			 user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+			service.saveUser(user);
+			model.addAttribute("msg", "Resgistered Success");
+	        return "login";
+	    }
+	  else {
+		model.addAttribute("msg", "Email already exist, Login ");
+        return "signup";
+    } 
 	}
 	
 	@PostMapping("/login")
@@ -61,20 +78,16 @@ public class RegisterController {
 		
 		RegisterEntity logUser=service.getUser(user.getUserEmail());
 		
-		if(logUser==null) {
-			model.addAttribute("msg", "user not found");
-			return "login";
-		}
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserEmail(),user.getUserPassword()));
+ //  System.out.println(authRequest.getEmail()+ "between " + authRequest.getPassword());
+
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String jwtToken = jwtService.generateToken(userDetails.getUsername());
+		if(logUser.getRole().equals("admin"))
+			return "admin";
+		else
+			return "home";
 		
-		if(logUser.getUserPassword()!=user.getUserPassword()) {
-			model.addAttribute("msg", "invalid credential");
-			return "login";
-		}
-		
-		model.addAttribute("uname", logUser.getUserName());
-		model.addAttribute("msg", "login successfull");
-		
-		return "home";
 	}
 	
 	
