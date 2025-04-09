@@ -188,6 +188,7 @@
 
     <div class="right-section">
       <form class="login-form" action="login"  method="post">
+      <div th:if="${msg}" th:text="${msg}" class="d-none" id="status-message">[[${msg}]]</div>
         <input type="email" placeholder="Enter your email" name = "userEmail" required />
         <input type="password" placeholder="Password" name = "userPassword" required />
         <div class="forgot-password"><a th:href="@{/forgot-password}">Forgot password?</a></div>

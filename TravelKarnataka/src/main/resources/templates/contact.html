@@ -93,16 +93,16 @@
 
 <!-- Show alert if status is present -->
 <div th:if="${status}">
-    <script th:inline="javascript">
+    <script>
         Swal.fire({
             icon: 'info',
             title: 'Message',
-           /*  text: [[${status}]] */
+           /*  text: [[${msg}]] */ 
         });
     </script>
 </div>
 
-<form action="adi/submit" method="post">
+<form th:action="@{adi/submit}" method="post">
     <br><br>
     <h1 style="color: black;">Contact Us</h1><br>
 
