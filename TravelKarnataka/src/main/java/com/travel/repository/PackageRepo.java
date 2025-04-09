@@ -9,6 +9,6 @@ import com.travel.entity.PackageEntity;
 
 public interface PackageRepo extends JpaRepository<PackageEntity, Integer> {
 	
-	boolean existByPname(String pname);
+	boolean existsByPname(String pname);
 	
 }

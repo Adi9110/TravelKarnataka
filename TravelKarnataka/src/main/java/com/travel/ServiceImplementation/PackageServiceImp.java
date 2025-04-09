@@ -15,7 +15,7 @@ public class PackageServiceImp implements PackageService {
 
 	@Override
 	public boolean isExist(String pname) {
-		return prepo.existByPname(pname) ;
+		return prepo.existsByPname(pname) ;
 	}
 
 }

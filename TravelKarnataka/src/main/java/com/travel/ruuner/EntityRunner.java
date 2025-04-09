@@ -31,7 +31,7 @@ public class EntityRunner implements CommandLineRunner {
                 service.saveUser(admin);
                 System.out.println("Admin user created successfully.");
             } else {
-                System.out.println("Admin user already exists.");
+                //System.out.println("Admin user already exists.");
             }
         } catch (Exception e) {
             e.printStackTrace();
