@@ -40,7 +40,8 @@ public class securityConfig {
                         		"/travel/login",
                         		"/travel/signup",
                         		"/travel/register",
-                        		"/travel/"
+                        		"/travel/",
+                        		"/admin/**"
                         		).permitAll()  // Allow login API without authentication
                         
                          

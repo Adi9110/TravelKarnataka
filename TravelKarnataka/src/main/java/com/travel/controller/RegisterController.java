@@ -79,12 +79,14 @@ public class RegisterController {
 		RegisterEntity logUser=service.getUser(user.getUserEmail());
 		
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserEmail(),user.getUserPassword()));
- //  System.out.println(authRequest.getEmail()+ "between " + authRequest.getPassword());
+        //  System.out.println(authRequest.getEmail()+ "between " + authRequest.getPassword());
 
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String jwtToken = jwtService.generateToken(userDetails.getUsername());
-		if(logUser.getRole().equals("admin"))
-			return "admin";
+		if(logUser.getRole().equals("admin")) {
+			model.addAttribute("name",user.getUserName());
+			return "adminHome";
+		}
 		else
 			return "home";
 		
