@@ -57,18 +57,20 @@
     </style>
 </head>
 <body>
-    <header class="navbar body">
-        <div class="container">
-            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Bookings</a></li>
-                    <li><a href="">FeedBack</a></li>
-                    <li><a href="">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div th:fragment="header">
+	    <header class="navbar body">
+	        <div class="container">
+	            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
+	            <nav>
+	                <ul class="nav-links">
+	                    <li><a href="">Home</a></li>
+	                    <li><a href="">Bookings</a></li>
+	                    <li><a href="">FeedBack</a></li>
+	                    <li><a href="">Contact</a></li>
+	                </ul>
+	            </nav>
+	        </div>
+	    </header>
+    </div>
 </body>
 </html>

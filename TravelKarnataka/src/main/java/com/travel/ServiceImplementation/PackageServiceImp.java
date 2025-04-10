@@ -35,7 +35,21 @@ public class PackageServiceImp implements PackageService {
 		// TODO Auto-generated method stub
 		return prepo.findById(id).get();
 	}
+
+	@Override
+	public void updatePackage(PackageEntity p) {
+		// TODO Auto-generated method stub
+	    prepo.save(p);
+	}
+
+	@Override
+	public void deletePackage(Integer id) {
+		// TODO Auto-generated method stub
+		if(prepo.existsById(id)) {
+			prepo.deleteById(id);
+	    }
+	}
+	
+}
 	
 
-
-}

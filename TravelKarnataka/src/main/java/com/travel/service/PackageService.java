@@ -16,6 +16,10 @@ public interface PackageService {
 	List<PackageEntity> getAllPackages();
 	
 	PackageEntity findPackageById(Integer id);
+
+	void updatePackage(PackageEntity p);
+
+	void deletePackage(Integer id);
 	
 
 }

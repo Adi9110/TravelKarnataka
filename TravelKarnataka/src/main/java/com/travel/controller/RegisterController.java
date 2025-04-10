@@ -60,10 +60,10 @@ public class RegisterController {
 		if(logUser!=null)
 			if(logUser.getUserPassword().equals(user.getUserPassword()) ) {
 				if(logUser.getRole().equals("admin")) {
-					return "admin";
+					return "adminHome";
 				}
 				else {
-					return "home";
+					return "userHome";
 				}
 			}
 			else 

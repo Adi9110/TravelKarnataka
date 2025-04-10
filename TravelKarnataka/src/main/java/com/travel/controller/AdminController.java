@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.travel.entity.PackageEntity;
 import com.travel.service.PackageService;
@@ -66,18 +68,47 @@ public class AdminController {
 	    return "packages"; 
 	}
 	
-//	@GetMapping("updatePackage/{id}")
-//		public String updatePackage(@RequestParam Integer id, Model model) {
-//			
-//			PackageEntity packageDetails = pservice.findPackageById(id);
-//			
-//			if(packageDetails!=null) {
-//				model.addAttribute("packageDeatails", packageDetails);
-//				return "updatePackage";
-//			}
-//			
-//		}
+	@GetMapping("/updatePackage/{id}")
+		public String updatePackage(@PathVariable Integer id, Model model) {
+			
+			PackageEntity packageDetails = pservice.findPackageById(id);
+			
+			if(packageDetails!=null) {
+				model.addAttribute("packageDetails", packageDetails);
+				return "updatePackage";
+			}
+			else {
+				model.addAttribute("failedMsg","Something Went Wrong! Please Try Again");
+				return "redirect:/admin/packages";
+			}
+			
+		}
+	
+	@PostMapping("/updatePackage")
+	public String updatePackage(@ModelAttribute PackageEntity p, Model model,RedirectAttributes redirectAttributes) {
+		
+		pservice.updatePackage(p);
+		
+		redirectAttributes.addFlashAttribute("successMessage", "Package Updated Successfully!");
+		
+		System.out.println("Updated package: " + p);
+		System.out.println("Redirecting to: /admin/updatePackage/" + p.getPid());
+		
+	    return "redirect:/admin/updatePackage/" + p.getPid(); 
 	}
+	
+	
+	@GetMapping("/deletePackage/{id}")
+	public String deletePackage(@PathVariable Integer id, Model model,RedirectAttributes redirectAttributes) {
+		
+		pservice.deletePackage(id);
+		redirectAttributes.addFlashAttribute("successMessage", "Package Deleted Successfully!");
+		return "redirect:/admin/viewPackages";
+	}
+	
+	
+	
+}
 	
 	
 	 
