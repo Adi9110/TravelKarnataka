@@ -24,7 +24,7 @@ public class EntityRunner implements CommandLineRunner {
                 admin.setUserEmail(email);
                 admin.setUserName("Admin");
                 admin.setUserPhone("8956958642");
-                
+                admin.setUserPassword("Travel@123");
                 service.saveUser(admin);
                 System.out.println("Admin user created successfully.");
             } else {
