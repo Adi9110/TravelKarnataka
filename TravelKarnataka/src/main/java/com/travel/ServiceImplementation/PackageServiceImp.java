@@ -30,5 +30,12 @@ public class PackageServiceImp implements PackageService {
         return prepo.findAll();
     }
 
+	@Override
+	public PackageEntity findPackageById(Integer id) {
+		// TODO Auto-generated method stub
+		return prepo.findById(id).get();
+	}
+	
+
 
 }
