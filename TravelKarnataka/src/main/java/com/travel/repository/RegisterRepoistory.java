@@ -10,8 +10,6 @@ import com.travel.entity.RegisterEntity;
 
 public interface RegisterRepoistory extends JpaRepository<RegisterEntity, Integer> {
 	boolean existsByUserEmail(String userEmail);
-	
-	
-	Optional<RegisterEntity> findByUserEmail(String email);
+	RegisterEntity findByUserEmail(String userEmail);
 	
 }

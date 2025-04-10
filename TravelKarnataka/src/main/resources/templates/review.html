@@ -131,21 +131,23 @@
     </div>
 
     <div class="right-section">
-      <form class="form" action="review" method="post">
-        <h2 style="text-align:center;">Rate Your Experience</h2>
-        <div class="rating">
-          <input type="hidden" name="rating">
-          <i class='bx bx-star star' style="--i:1;"></i>
-          <i class='bx bx-star star' style="--i:2;"></i>
-          <i class='bx bx-star star' style="--i:3;"></i>
-          <i class='bx bx-star star' style="--i:4;"></i>
-          <i class='bx bx-star star' style="--i:5;"></i>
-        </div>
-        <input type="text" name="username" th:value="${uname}" readonly placeholder="Your Name">
-        <input type="email" name="userEmail" th:value="${umail}" readonly placeholder="Your Email">
-        <textarea name="opinion" placeholder="Your opinion..." required></textarea>
-        <button type="submit" name="review">Submit</button>
-      </form>
+      <form class="form" th:action="@{/service/review}" method="post">
+    <h2 style="text-align:center;">Rate Your Experience</h2>
+    <div class="rating">
+        <input type="hidden" name="rating">
+        <i class='bx bx-star star' style="--i:1;"></i>
+        <i class='bx bx-star star' style="--i:2;"></i>
+        <i class='bx bx-star star' style="--i:3;"></i>
+        <i class='bx bx-star star' style="--i:4;"></i>
+        <i class='bx bx-star star' style="--i:5;"></i>
+    </div>
+    <input type="text" name="username" th:value="${uname}" readonly placeholder="Your Name">
+    <input type="email" name="userEmail" th:value="${umail}" readonly placeholder="Your Email">
+    <textarea name="opinion" placeholder="Your opinion..." required></textarea>
+    <button type="submit" name="review">Submit</button>
+    <div th:if="${msg}" th:text="${msg}"></div>
+</form>
+
     </div>
   </div>
 
