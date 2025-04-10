@@ -43,6 +43,8 @@ public class RegisterController {
 		boolean exist = service.checkUser(user.getUserEmail());
 		if (!exist) { 
 			 
+			
+			
 			service.saveUser(user);
 			model.addAttribute("msg", "Resgistered Success");
 	        return "login";
@@ -64,7 +66,7 @@ public class RegisterController {
 					return "adminHome";
 				}
 				else {
-					return "review";
+					return "userHome";
 				}
 			}
 			else 
