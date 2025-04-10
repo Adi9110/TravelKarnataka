@@ -56,6 +56,7 @@ public class RegisterController {
 		
 		RegisterEntity logUser=service.getUser(user.getUserEmail());
 		
+
 		if(logUser!=null)
 			if(logUser.getUserPassword().equals(user.getUserPassword()) ) {
 				if(logUser.getRole().equals("admin")) {
@@ -70,6 +71,9 @@ public class RegisterController {
 				model.addAttribute("msg", "invalid credentials");
 			}
 		return "login";
+        //  System.out.println(authRequest.getEmail()+ "between " + authRequest.getPassword());
+
+			
 	}
 	
 	
