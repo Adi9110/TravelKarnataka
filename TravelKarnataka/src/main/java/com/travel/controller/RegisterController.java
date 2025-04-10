@@ -64,7 +64,7 @@ public class RegisterController {
 					return "adminHome";
 				}
 				else {
-					return "review";
+					return "home";
 				}
 			}
 			else 

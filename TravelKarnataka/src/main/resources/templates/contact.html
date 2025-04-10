@@ -102,15 +102,16 @@
     </script>
 </div>
 
-<form th:action="@{adi/submit}" method="post">
+<form action="submit" method="post">
     <br><br>
+    <div th:if="${msg}" th:text="${msg}" class="d-none" id="status-message">[[${msg}]]</div>
     <h1 style="color: black;">Contact Us</h1><br>
 
-    <input type="text" placeholder="Name" name="name" th:value="name" required><br><br>
+    <input type="text" placeholder="Name" name="name" th:value="${name}" required><br><br>
 
-    <input type="email" placeholder="Email" name="email" id="email" th:value="email" required><br><br>
+    <input type="email" placeholder="Email" name="email" id="email" th:value="${email}" required><br><br>
 
-    <input type="tel" placeholder="Phone" name="phone" id="phone"><br><br>
+    <input type="tel" placeholder="Phone" name="phone" th:value="${phone}" id="phone"><br><br>
 
     <input type="text" placeholder="Subject" name="subject" required><br><br>
 
