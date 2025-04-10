@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.travel.entity.Contact;
 import com.travel.entity.ReviewEntity;
+import com.travel.service.ContactService;
 import com.travel.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
@@ -44,4 +46,29 @@ public class serviceContoller {
 
         return "review";
     }
+    
+    @Autowired
+	private ContactService cservice;
+	@GetMapping("/contact")
+	public String getcontact(Model model, HttpSession session)
+	{
+		model.addAttribute("name", session.getAttribute("uname"));
+		model.addAttribute("email", session.getAttribute("umail"));
+		model.addAttribute("phone", session.getAttribute("uphone"));
+		return "contact";
+	}
+	
+	@PostMapping("/submit")
+	public String contactUs(Contact con,Model model)
+	{
+		int a=cservice.add(con);
+		if(a>0)
+		{
+			model.addAttribute("msg", "You will be Informed");
+			
+		}
+		else
+			model.addAttribute("msg", "Contact failed");
+		return "contact";
+	}
 }
