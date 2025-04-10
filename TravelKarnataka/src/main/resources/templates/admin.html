@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada&display=swap" rel="stylesheet">
+<title>Insert title here</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Kannada', Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 65px;
+            width: 83px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .header-banner {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header-banner h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .header-banner img {
+            width: 100%;
+            max-height: 470px;
+            object-fit: cover;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            nav a {
+                padding: 10px 0;
+                border-top: 1px solid #eee;
+                width: 100%;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            header {
+                align-items: flex-start;
+            }
+
+            .header-banner h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a th:href="@{/home}">
+            <img src="https://i.pinimg.com/736x/df/2f/97/df2f9737c710e591a5330855cb47231b.jpg" alt="Logo">
+        </a>
+        <span>Travel ಕರ್ನಾಟಕ</span>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="navbar">
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/contact}">Contact-Us</a>
+        <a th:href="@{/package/packages}">Manage-Packages</a>  
+        <a th:href="@{/bookings}">Bookings</a>
+        <a th:href="@{/reviews}">Reviews</a>
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+    
+</header>
+
+<div class="header-banner">
+    <h1>Admin Dashboard</h1>
+    <img src="https://tripxl.com/blog/wp-content/uploads/2024/10/Murudeshwar-3.jpg" alt="Scenic travel background">
+</div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById("navbar");
+        nav.classList.toggle("show");
+    }
+</script>
+
+</body>
+</html>

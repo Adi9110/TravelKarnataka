@@ -23,6 +23,7 @@ public class EmailUtil
 	     final String username = "pmeghana1310@gmail.com"; // Your email
 	     final String password = "lfwo bthg bbgj dwti"; // Your email password
 
+	     try {
 	    
 	     Properties properties = new Properties();
 	     properties.put("mail.smtp.host", host);
@@ -34,7 +35,7 @@ public class EmailUtil
 	        	return new PasswordAuthentication(username, password);
 	         }
 	     });
-	     try {
+	     
 	         MimeMessage message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress(username));
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));

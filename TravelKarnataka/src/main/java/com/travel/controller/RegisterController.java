@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.travel.entity.RegisterEntity;
 import com.travel.service.RegisterService;
 
-import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -20,8 +19,7 @@ public class RegisterController {
 	
 	@Autowired
 	private RegisterService service;
-	
-	
+
 	@GetMapping("/app")
 	public String loadIndex() {
 		return "index";
@@ -41,19 +39,16 @@ public class RegisterController {
 	public String userRegister(@ModelAttribute RegisterEntity user, Model model) {
 
 		boolean exist = service.checkUser(user.getUserEmail());
-		if (!exist) {
-			Integer id = service.saveUser(user);
-			if (id > 0) {
-				model.addAttribute("msg","Registered Successfully with id: " + id);
-				return "Login";
-			} else {
-				model.addAttribute("msg","Registration failed. Please try again.");
-				return "Signup";
-			}
-		} else {
-			model.addAttribute("msg", "User already exists with this email.");
-			return "Signup";
-		}
+		if (!exist) { 
+			 
+			service.saveUser(user);
+			model.addAttribute("msg", "Resgistered Success");
+	        return "login";
+	    }
+	  else {
+		model.addAttribute("msg", "Email already exist, Login ");
+        return "signup";
+    } 
 	}
 	
 	@PostMapping("/login")
@@ -61,20 +56,24 @@ public class RegisterController {
 		
 		RegisterEntity logUser=service.getUser(user.getUserEmail());
 		
-		if(logUser==null) {
-			model.addAttribute("msg", "user not found");
-			return "login";
-		}
-		
-		if(logUser.getUserPassword()!=user.getUserPassword()) {
-			model.addAttribute("msg", "invalid credential");
-			return "login";
-		}
-		
-		model.addAttribute("uname", logUser.getUserName());
-		model.addAttribute("msg", "login successfull");
-		
-		return "home";
+
+		if(logUser!=null)
+			if(logUser.getUserPassword().equals(user.getUserPassword()) ) {
+				if(logUser.getRole().equals("admin")) {
+					return "admin";
+				}
+				else {
+					return "home";
+				}
+			}
+			else 
+			{
+				model.addAttribute("msg", "invalid credentials");
+			}
+		return "login";
+        //  System.out.println(authRequest.getEmail()+ "between " + authRequest.getPassword());
+
+			
 	}
 	
 	

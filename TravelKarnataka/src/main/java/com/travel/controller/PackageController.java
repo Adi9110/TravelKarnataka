@@ -1,5 +1,6 @@
 package com.travel.controller;
 
-public class PackageController {
 
+public class PackageController {
+	
 }
