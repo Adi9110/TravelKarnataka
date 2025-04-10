@@ -15,6 +15,7 @@ public interface PackageService {
 	
 	List<PackageEntity> getAllPackages();
 	
+	PackageEntity findPackageById(Integer id);
 	
 
 }
