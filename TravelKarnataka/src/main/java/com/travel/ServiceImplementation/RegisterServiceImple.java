@@ -7,6 +7,8 @@ import com.travel.entity.RegisterEntity;
 import com.travel.repository.RegisterRepoistory;
 import com.travel.service.RegisterService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class RegisterServiceImple implements RegisterService {
 	
@@ -24,8 +26,19 @@ public class RegisterServiceImple implements RegisterService {
 	}
 
 	@Override
-	public RegisterEntity getUser(String email) {
-		return repo.findByUserEmail(email).orElse(null);
+	public RegisterEntity getUser(String email, String password, HttpSession session) {
+	    RegisterEntity user = repo.findByUserEmail(email);
+
+	    if (user != null && user.getUserPassword().equals(password)) {
+	        session.setAttribute("umail", user.getUserEmail());
+	        session.setAttribute("uname", user.getUserName());
+	        session.setAttribute("uphone", user.getUserPhone());
+	        
+	        System.out.println("User logged in: " + user.getUserName() + " with email: " + user.getUserEmail());
+	        
+	        return user;
+	    }
+	    return null;
 	}
 
 }

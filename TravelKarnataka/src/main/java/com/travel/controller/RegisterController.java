@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.travel.entity.RegisterEntity;
 import com.travel.service.RegisterService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -52,11 +54,10 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/login")
-	public String userLogin(@ModelAttribute RegisterEntity user , Model model ) {
+	public String userLogin(@ModelAttribute RegisterEntity user , Model model ,HttpSession session) {
 		
-		RegisterEntity logUser=service.getUser(user.getUserEmail());
+		 RegisterEntity logUser = service.getUser(user.getUserEmail(), user.getUserPassword(), session);
 		
-
 		if(logUser!=null)
 			if(logUser.getUserPassword().equals(user.getUserPassword()) ) {
 				if(logUser.getRole().equals("admin")) {
@@ -75,6 +76,8 @@ public class RegisterController {
 
 			
 	}
+	
+	
 	
 	
 }
