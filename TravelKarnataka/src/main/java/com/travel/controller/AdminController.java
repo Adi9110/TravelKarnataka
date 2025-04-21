@@ -105,9 +105,7 @@ public class AdminController {
 		redirectAttributes.addFlashAttribute("successMessage", "Package Deleted Successfully!");
 		return "redirect:/admin/viewPackages";
 	}
-	
-	
-	
+		
 }
 	
 	
