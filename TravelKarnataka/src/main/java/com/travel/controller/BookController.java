@@ -1,8 +1,12 @@
 package com.travel.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,5 +66,56 @@ public class BookController {
 		return "userHome";
 		
 	}
+	
+	
+	@GetMapping("/getBookings")
+	public String getBookings(@RequestParam int pid, HttpSession session, Model model) {
+
+	    if (session.getAttribute("uname") == null) {
+	        model.addAttribute("msg", "please login");
+	        return "login";
+	    }
+
+	    PackageEntity pkg = ps.findPackageById(pid);
+
+	    if (pkg == null) {
+	        model.addAttribute("msg", "package is not available");
+	        return "userHome";
+	    }
+
+	    String userEmail = (String) session.getAttribute("umail");
+	    List<BookingEntity> bookings = bs.getBookingsByEmail(userEmail);
+
+	    if (bookings == null || bookings.isEmpty()) {
+	        model.addAttribute("msg", "book package");
+	    }
+
+	    model.addAttribute("bookings", bookings);
+
+	    return "bookings";
+	}
+
+	@DeleteMapping("/cancelBooking")
+	public String deleteBooking(@RequestParam int bid, Model model, HttpSession session) {
+
+	    if (session.getAttribute("uname") == null) {
+	        model.addAttribute("msg", "please login");
+	        return "login";
+	    }
+
+	    Optional<BookingEntity> bookingOpt = bs.getBooking(bid);
+
+	    if (bookingOpt.isPresent() && bookingOpt.get().getStatus()=="pending") {
+	        bs.deleteBooking(bid);  // Assuming you have this method in your service
+	        model.addAttribute("msg", "Booking cancelled successfully");
+	    } else {
+	        model.addAttribute("msg", "Booking not found");
+	    }
+
+	    return "redirect:/booking/getBookings";
+	}
+
+	
+	
 	
 }

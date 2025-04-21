@@ -14,10 +14,15 @@ public class BookingEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bid;
-	private String userName;
 	private String userEmail;
+	private String date;
+	private String pName;
+	
+	@Column(name="people_count")
+	private Integer numberOfPeople;
 	
 	@Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'pending'")
 	private String status;
+	
 	
 }
