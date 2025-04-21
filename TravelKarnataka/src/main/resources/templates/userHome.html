@@ -203,6 +203,21 @@
             cursor: pointer;
         }
         
+        .btn-book {
+		    display: inline-block;
+		    background: #d10000;
+		    color: white;
+		    padding: 10px 20px;
+		    border-radius: 5px;
+		    text-decoration: none;
+		    font-weight: 500;
+		    transition: background 0.3s;
+		    width: 100%;
+		    text-align: center;
+		    border: none;
+		    cursor: pointer;
+}
+        
         /*Footer style*/
         .main-footer {
             background-color: red;
@@ -358,11 +373,9 @@
                         <span th:text="${package.pduration}"></span>
                     </div>
                     <p class="package-desc" th:text="${package.pdestination}"></p>
-                    <form th:action="@{/bookPackage/{id}(id=${package.pid})}" method="post">
-                        <button type="submit" class="btn-book">
-                            <i class="fas fa-calendar-check"></i> Book Now
-                        </button>
-                    </form>
+                    <a th:href="@{/user/bookPackage/{id}(id=${package.pid})}" class="btn-book">
+   							 <i class="fas fa-calendar-check"></i> Book Now
+					</a>
                 </div>
             </div>
         </div>
