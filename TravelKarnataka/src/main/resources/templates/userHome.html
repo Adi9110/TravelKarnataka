@@ -324,11 +324,11 @@
 	            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
 	            <nav>
 	                <ul class="nav-links">
-	                    <li><a href="">Home</a></li>
+	                    <li><a href="#home">Home</a></li>
 	                    <li><a href="">Bookings</a></li>
 	                    <li><a href="">FeedBack</a></li>
-	                    <li><a href="">Contact</a></li>
-	                    <li><a href="">Logout</a></li>
+	                    <li><a th:href="@{/service/contact}">Contact</a></li>
+	                    <li><a href="logout">Logout</a></li>
 	                </ul>
 	            </nav>
 	        </div>
@@ -336,7 +336,7 @@
 
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>Discover Karnataka's Hidden Gems</h1>
             <p>Explore curated travel experiences across the state</p>
