@@ -437,7 +437,7 @@
                     </div>-->
                 </div>
 
-                <form class="booking-form" th:action="@{/confirmBooking/{id}(id=${package.pid})}" method="post">
+                <form class="booking-form" th:action="@{/booking/booking/{id}(id=${package.pid})}" method="post">
                     <label for="travel-date">Travel Date</label>
                     <input type="date" id="travel-date" name="date" th:attr="min=${minDate}">
                     
