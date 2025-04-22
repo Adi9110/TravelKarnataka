@@ -21,8 +21,9 @@ public class BookingEntity {
 	@Column(name="people_count")
 	private Integer numberOfPeople;
 	
-	@Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'pending'")
-	private String status;
+	@Column(name = "status")
+	private String status = "pending";
+
 	
 	
 }
