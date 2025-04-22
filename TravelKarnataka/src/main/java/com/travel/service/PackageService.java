@@ -20,6 +20,8 @@ public interface PackageService {
 	void updatePackage(PackageEntity p);
 
 	void deletePackage(Integer id);
+
+
 	
 
 }
