@@ -83,8 +83,8 @@ public class BookController {
 	}
 
 	
-	@GetMapping("/getBookings")
-	public String getBookings(@RequestParam int id, HttpSession session, Model model) {
+	@GetMapping("/getUserBookings")
+	public String getUserBookings(@RequestParam int id, HttpSession session, Model model) {
 
 	    if (session.getAttribute("uname") == null) {
 	        model.addAttribute("msg", "please login");
@@ -103,6 +103,7 @@ public class BookController {
 
 	    if (bookings == null || bookings.isEmpty()) {
 	        model.addAttribute("msg", "book package");
+	        return "booking";
 	    }
 
 	    model.addAttribute("bookings", bookings);
@@ -130,7 +131,17 @@ public class BookController {
 	    return "redirect:/booking/getBookings";
 	}
 
-	
-	
+	@GetMapping("/getAllBookings")
+	public String getAllBookings(Model model) {
+		 List<BookingEntity> bookings = bs.getAllBookings();
+
+		    if (bookings == null || bookings.isEmpty()) {
+		        model.addAttribute("msg", "No bookings");
+		        return "booking";
+		    }
+
+		    model.addAttribute("bookings", bookings);
+		    return "booking";
+	}
 	
 }

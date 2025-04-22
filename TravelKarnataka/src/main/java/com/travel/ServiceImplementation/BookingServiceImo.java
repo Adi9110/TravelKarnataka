@@ -43,6 +43,12 @@ public class BookingServiceImo implements BookingService {
 	    }
 	}
 
+	@Override
+	public List<BookingEntity> getAllBookings() {
+		List<BookingEntity> bookings=br.findAll();
+		return bookings.isEmpty() ? Collections.emptyList() : bookings;
+	}
+
 
 
 }
