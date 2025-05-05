@@ -31,7 +31,9 @@ public class BookController {
 	private PackageService ps;
 
 	@GetMapping("/bookingForm")
-	public String showBookingForm(@RequestParam int id , HttpSession session , Model model ) {
+	public String showBookingForm(@RequestParam int id, 
+									HttpSession session, 
+									Model model ) {
 		
 		if(session.getAttribute("uname")==null) {
 			model.addAttribute("msg", "please login");
