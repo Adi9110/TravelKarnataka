@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.travel.entity.RegisterEntity;
+import com.travel.service.PackageService;
 import com.travel.service.RegisterService;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +22,10 @@ public class RegisterController {
 	
 	@Autowired
 	private RegisterService service;
+	
+
+	@Autowired
+	private  PackageService packageService;
 
 	@GetMapping("/app")
 	public String loadIndex() {
@@ -66,7 +71,7 @@ public class RegisterController {
 					return "adminHome";
 				}
 				else {
-					
+					model.addAttribute("packages", packageService.getAllPackages());
 					return "userHome";
 				}
 			}
