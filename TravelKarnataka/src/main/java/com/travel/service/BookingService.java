@@ -11,9 +11,15 @@ import com.travel.entity.BookingEntity;
 public interface BookingService {
 	
 	int addBooking(BookingEntity be);
+	
 	List<BookingEntity> getBookingsByEmail(String email);
+	
 	Optional<BookingEntity> getBooking(int id);
+	
 	void deleteBooking(int id);
+	
+	List<BookingEntity> getAllBookings();
+	
 
 	
 }

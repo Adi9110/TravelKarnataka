@@ -17,12 +17,15 @@ public class BookingEntity {
 	private String userEmail;
 	private String date;
 	private String pName;
+	private double pPrice;
+	private double total;
 	
 	@Column(name="people_count")
 	private Integer numberOfPeople;
 	
-	@Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'pending'")
-	private String status;
+	@Column(name = "status")
+	private String status = "pending";
+
 	
 	
 }
