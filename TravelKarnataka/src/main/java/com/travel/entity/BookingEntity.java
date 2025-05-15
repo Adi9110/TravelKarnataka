@@ -17,6 +17,8 @@ public class BookingEntity {
 	private String userEmail;
 	private String date;
 	private String pName;
+	private double pPrice;
+	private double total;
 	
 	@Column(name="people_count")
 	private Integer numberOfPeople;

@@ -31,7 +31,9 @@ public class BookController {
 	private PackageService ps;
 
 	@GetMapping("/bookingForm")
-	public String showBookingForm(@RequestParam int id , HttpSession session , Model model ) {
+	public String showBookingForm(@RequestParam int id, 
+									HttpSession session, 
+									Model model ) {
 		
 		if(session.getAttribute("uname")==null) {
 			model.addAttribute("msg", "please login");
@@ -55,7 +57,10 @@ public class BookController {
 		return "bookingForm";
 	}
 	@PostMapping("/booking/{id}")
-	public String addBooking(Model model, @PathVariable("id") int id, BookingEntity booking, HttpSession session) {
+	public String addBooking(Model model, 
+	                         @PathVariable("id") int id, 
+	                         BookingEntity booking, 
+	                         HttpSession session) {
 
 	    PackageEntity pkg = ps.findPackageById(id);
 	    if (pkg == null) {
@@ -63,25 +68,33 @@ public class BookController {
 	        return "userHome";
 	    }
 
-	    String userEmail = (String) session.getAttribute("umail");
-	    if (userEmail == null) {
+	    Object userObj = session.getAttribute("umail");
+	    if (!(userObj instanceof String)) {
 	        model.addAttribute("msg", "User session expired. Please log in again.");
 	        return "login";
 	    }
 
+	    String userEmail = (String) userObj;
+
+	    if (booking.getNumberOfPeople() <= 0) {
+	        model.addAttribute("msg", "Please enter a valid number of people.");
+	        return "userHome";
+	    }
+
 	    booking.setPName(pkg.getPname());
 	    booking.setUserEmail(userEmail);
+	    booking.setPPrice(pkg.getPprice());
+	    booking.setTotal(pkg.getPprice() * booking.getNumberOfPeople());
 
 	    int bid = bs.addBooking(booking);
 	    if (bid > 0) {
-	        model.addAttribute("msg", "Booking successful");
-	        return "redirect:/user/home";
+	        model.addAttribute("msg", "Booking successful.");
+	        return "userHome";
 	    }
 
-	    model.addAttribute("msg", "Booking failed");
+	    model.addAttribute("msg", "Booking failed.");
 	    return "userHome";
 	}
-
 	
 	@GetMapping("/getUserBookings")
 	public String getUserBookings(@RequestParam int id, HttpSession session, Model model) {
