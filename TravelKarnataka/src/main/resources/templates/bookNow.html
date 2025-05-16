@@ -366,7 +366,6 @@
                 <ul class="nav-links">
 	                    <li><a href="#home">Home</a></li>
 	                    <li><a th:href="@{/booking/getUserBookings}">Bookings</a></li>
-	                    <li><a th:href="@{/divya/statuspage}">Status</a></li>
 	                    <li><a th:href="@{/service/reviewpage}">FeedBack</a></li>
 	                    <li><a th:href="@{/service/contact}">Contact</a></li>
 	                    <li><a href="#" onclick="openLogoutModal()">Logout</a></li>
@@ -425,17 +424,9 @@
                 
                 <div class="booking-summary">
                     <div class="summary-item">
-                        <span>Package Price:</span>
-                        <span th:text="'₹' + ${package.pprice}">₹10,000</span>
+                        <span>Package Price per Person:</span>
+                        <span th:text="'₹' + ${package.pprice}"></span>
                     </div>
-                    <!-- <div class="summary-item">
-                        <span>Taxes & Fees:</span>
-                        <span>₹1,200</span>
-                    </div>
-                    <div class="summary-item" style="font-weight: bold;">
-                        <span>Total:</span>
-                        <span th:text="'₹' + (${package.pprice} + 1200)">₹11,200</span>
-                    </div>-->
                 </div>
 
                 <form class="booking-form" th:action="@{/booking/booking/{id}(id=${package.pid})}" method="post">

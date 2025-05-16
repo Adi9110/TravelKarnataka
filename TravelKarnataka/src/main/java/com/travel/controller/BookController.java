@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.travel.entity.BookingEntity;
 import com.travel.entity.PackageEntity;
@@ -89,7 +90,7 @@ public class BookController {
 	    int bid = bs.addBooking(booking);
 	    if (bid > 0) {
 	        model.addAttribute("msg", "Booking successful.");
-	        return "userHome";
+	       return "redirect:/booking/getUserBookings";
 	    }
 
 	    model.addAttribute("msg", "Booking failed.");
@@ -156,5 +157,7 @@ public class BookController {
 		    model.addAttribute("bookings", bookings);
 		    return "booking";
 	}
+	
+	
 	
 }

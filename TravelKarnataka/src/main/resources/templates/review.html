@@ -1,180 +1,480 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Travel Review</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Karnataka | Review</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+        .body {
+            line-height: 1.6;
+            color: #333;
+        }
 
-    body, html {
-      height: 100%;
-    }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .container {
-      display: flex;
-      height: 100vh;
-      background: url('https://i.pinimg.com/736x/17/53/bb/1753bb48e33cea15fdfb4c8d747a7830.jpg') no-repeat center center/cover;
-      flex-wrap: wrap;
-    }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .left-section {
-      flex: 1;
-      color: black;
-      padding: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-    .left-section .description {
-      font-size: 30px;
-      margin-top: -250px;
-      margin-left: 100px;
-    }
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
 
-    .right-section {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
 
-    .form {
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 40px;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+        /* Hero Section */
+        .hero {
+            background: url('https://i.pinimg.com/736x/17/53/bb/1753bb48e33cea15fdfb4c8d747a7830.jpg') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+        }
 
-    .form input,
-    .form textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      background-color: #f5f5f5;
-    }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
-    .form textarea {
-      resize: none;
-      height: 120px;
-    }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-    .form button {
-      padding: 12px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-    .rating {
-      display: flex;
-      justify-content: center;
-      gap: .5rem;
-      font-size: 2rem;
-      color: blue;
-    }
+        /* Review Form Section */
+        .review-container {
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+        }
 
-    .rating .star {
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+        .review-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
 
-    .rating .star:hover {
-      transform: scale(1.1);
-    }
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #d10000;
+        }
 
-    .rating .star.active {
-      animation: animate 0.5s ease-in-out forwards;
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    @keyframes animate {
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
 
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        height: auto;
-      }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-      .left-section,
-      .right-section {
-        width: 100%;
-        padding: 40px 20px;
-        text-align: center;
-      }
-    }
-  </style>
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .rating .star {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rating .star:hover,
+        .rating .star.active {
+            color: #ffc107;
+            transform: scale(1.1);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: #d10000;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background: #a30000;
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Footer Styles */
+        .main-footer {
+            background-color: red;
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 40px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .footer-column p {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            margin-top: 15px;
+        }
+
+        .contact-info p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-input {
+            padding: 10px;
+            border: none;
+            width: 70%;
+            font-size: 14px;
+        }
+
+        .newsletter-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .review-form {
+                padding: 20px;
+            }
+            
+            .footer-column {
+                flex: 100%;
+                padding: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="left-section">
-      <p class="description"><b>"Tell us how your trip went! Your feedback helps fellow travelers and makes our tours even better."</b></p>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a th:href="@{/booking/getUserBookings}">Bookings</a></li>
+                    <li><a th:href="@{/service/reviewpage}">Feedback</a></li>
+                    <li><a th:href="@{/service/contact}">Contact</a></li>
+                    <li><a href="#" onclick="openLogoutModal()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Share Your Experience</h1>
+            <p>Your feedback helps us improve our services</p>
+        </div>
+    </section>
+
+    <!-- Review Form -->
+    <div class="container review-container">
+        <form class="review-form" th:action="@{/service/review}" method="post">
+            <h2 class="form-title">Rate Your Experience</h2>
+            
+            <div th:if="${msg}" class="form-message" th:classappend="${success} ? 'success' : 'error'" th:text="${msg}"></div>
+            
+            <div class="rating">
+                <input type="hidden" name="rating" id="ratingValue" value="0">
+                <i class='bx bx-star star' data-value="1"></i>
+                <i class='bx bx-star star' data-value="2"></i>
+                <i class='bx bx-star star' data-value="3"></i>
+                <i class='bx bx-star star' data-value="4"></i>
+                <i class='bx bx-star star' data-value="5"></i>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Your Name</label>
+                <input type="text" id="username" name="username" th:value="${uname}" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="userEmail">Your Email</label>
+                <input type="email" id="userEmail" name="userEmail" th:value="${umail}" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="opinion">Your Feedback</label>
+                <textarea id="opinion" name="opinion" class="form-control" placeholder="Tell us about your experience..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </form>
     </div>
 
-    <div class="right-section">
-      <form class="form" th:action="@{/service/review}" method="post">
-    <h2 style="text-align:center;">Rate Your Experience</h2>
-    <div class="rating">
-        <input type="hidden" name="rating">
-        <i class='bx bx-star star' style="--i:1;"></i>
-        <i class='bx bx-star star' style="--i:2;"></i>
-        <i class='bx bx-star star' style="--i:3;"></i>
-        <i class='bx bx-star star' style="--i:4;"></i>
-        <i class='bx bx-star star' style="--i:5;"></i>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>TRAVEL KARNATAKA</h3>
+                <p>We are passionate about showcasing the beauty of Karnataka. From heritage sites to natural wonders, we create unforgettable travel experiences.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/packages">Packages</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><span style="margin-right: 10px;">📌</span> 123 MG Road, Bangalore, Karnataka</p>
+                    <p><span style="margin-right: 10px;">📞</span> +91 9876543210</p>
+                    <p><span style="margin-right: 10px;">✉️</span> info@travelkarnataka.com</p>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get updates on exciting offers and travel deals.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" class="newsletter-input">
+                    <button type="submit" class="newsletter-btn">GO</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2023 Travel Karnataka. All Rights Reserved. | Designed with 💛 for Karnataka Tourism</p>
+        </div>
+    </footer>
+
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal1">
+        <div class="modal-content1">
+            <p>Are you sure you want to logout?</p>
+            <form method="get" th:action="@{/travel/logout}">
+                <button type="submit" class="confirm-btn1">Yes, Logout</button>
+                <button type="button" class="close-btn1" onclick="closeLogoutModal()">Cancel</button>
+            </form>
+        </div>
     </div>
-    <input type="text" name="username" th:value="${uname}" readonly placeholder="Your Name">
-    <input type="email" name="userEmail" th:value="${umail}" readonly placeholder="Your Email">
-    <textarea name="opinion" placeholder="Your opinion..." required></textarea>
-    <button type="submit" name="review">Submit</button>
-    <div th:if="${msg}" th:text="${msg}"></div>
-</form>
 
-    </div>
-  </div>
+    <script>
+        // Star Rating System
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.getElementById('ratingValue');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                ratingValue.value = value;
+                
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = this.getAttribute('data-value');
+                
+                stars.forEach(s => {
+                    s.classList.remove('hover');
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('hover');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                stars.forEach(s => {
+                    s.classList.remove('hover');
+                });
+            });
+        });
 
-  <script>
-	const allStar = document.querySelectorAll('.rating .star')
-	const ratingValue = document.querySelector('.rating input')
+        // Logout Modal Functions
+        function openLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'flex';
+        }
 
-	allStar.forEach((item, idx)=> {
-		item.addEventListener('click', function () {
-			let click = 0
-			ratingValue.value = idx + 1
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'none';
+        }
 
-			allStar.forEach(i=> {
-				i.classList.replace('bxs-star', 'bx-star')
-				i.classList.remove('active')
-			})
-			for(let i=0; i<allStar.length; i++) {
-				if(i <= idx) {
-					allStar[i].classList.replace('bx-star', 'bxs-star')
-					allStar[i].classList.add('active')
-				} else {
-					allStar[i].style.setProperty('--i', click)
-					click++
-				}
-			}
-		})
-	})
-	</script>
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('logoutModal')) {
+                closeLogoutModal();
+            }
+        }
+    </script>
 </body>
 </html>

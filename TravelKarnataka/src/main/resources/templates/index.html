@@ -392,7 +392,7 @@
                     <li><a href="signup">Register</a></li>
                 </ul>
             </nav>
-            <a th:href="@{/travel/signup}" class="book-btn">Book Now</a>
+            <a th:href="@{/travel/signup}" class="book-btn" style="text-decoration : none;">Book Now</a>
         </div>
     </header>
 
@@ -400,7 +400,7 @@
     <section class="hero" id="hero">
         <div class="overlay">
             <h1>Escape Ordinary<br />Embrace Karnataka's Charm</h1>
-            <button class="cta-btn">BOOK NOW</button>
+            <a th:href="@{/travel/signup}" class="book-btn" style="text-decoration : none; padding : 15px 25px;">Book Now</a>
         </div>
     </section>
 
@@ -413,14 +413,14 @@
         <!-- Slider container with full-width buttons -->
         <div style="position: relative;">
             <!-- Left button -->
-            <button onclick="scrollCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+            <button onclick="scrollPlaceCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
                font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
                border-radius: 0 10px 10px 0; cursor: pointer;">
                 ⟵
             </button>
 
             <!-- Right button -->
-            <button onclick="scrollCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+            <button onclick="scrollPlaceCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
                font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
                border-radius: 10px 0 0 10px; cursor: pointer;">
                 ⟶
@@ -428,7 +428,7 @@
 
             <!-- Cards container inside scroll wrapper -->
             <div class="container">
-                <div class="cards-slider" id="cards-slider">
+                <div class="cards-slider" id="cards-slider-place">
 
                     <div class="card">
                         <img src="https://i.pinimg.com/736x/36/d1/7b/36d17b7470e2ebdd367a930a753ee1b3.jpg"
@@ -516,14 +516,14 @@
         <!-- Slider container with full-width buttons -->
         <div style="position: relative;">
             <!-- Left button -->
-            <button onclick="scrollCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+            <button onclick="scrollTestimonialsCards(-1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;
                font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
                border-radius: 0 10px 10px 0; cursor: pointer;">
                 ⟵
             </button>
 
             <!-- Right button -->
-            <button onclick="scrollCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
+            <button onclick="scrollTestimonialsCards(1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;
                font-size: 28px; background: red; color: white; border: none; padding: 14px 18px;
                border-radius: 10px 0 0 10px; cursor: pointer;">
                 ⟶
@@ -531,7 +531,7 @@
 
             <!-- Cards container inside scroll wrapper -->
             <div class="container">
-                <div class="cards-slider" id="cards-slider">
+                <div class="cards-slider" id="cards-slider-testimonials">
 
                     <div class="testimonial-card">
                         <img src="https://i.pinimg.com/736x/f3/e7/c0/f3e7c08717f964391b5aeeabd287dffe.jpg"
@@ -661,8 +661,14 @@
         setInterval(changeBackground, 4000);
 
         //-------scroll card func-----------
-        function scrollCards(direction) {
-            const container = document.getElementById('cards-slider');
+        function scrollPlaceCards(direction) {
+            const container = document.getElementById('cards-slider-place');
+            const scrollAmount = 320;
+            container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+        
+        function scrollTestimonialsCards(direction) {
+            const container = document.getElementById('cards-slider-testimonials');
             const scrollAmount = 320;
             container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }

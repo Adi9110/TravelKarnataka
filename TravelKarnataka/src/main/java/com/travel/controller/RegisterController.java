@@ -42,6 +42,7 @@ public class RegisterController {
 		return "signup";
 	}
 	
+	
 	@PostMapping("/register")
 	public String userRegister(@ModelAttribute RegisterEntity user, Model model) {
 

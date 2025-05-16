@@ -55,6 +55,4 @@ public class BookingServiceImo implements BookingService {
 		br.save(b);
 	}
 
-
-
 }

@@ -331,11 +331,11 @@
 	            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
 	            <nav>
 	                <ul class="nav-links">
-	                    <li><a href="#home">Home</a></li>
+	                    <li><a>Home</a></li>
 	                    <li><a th:href="@{/booking/getUserBookings}">Bookings</a></li>
-	                    <li><a href="">FeedBack</a></li>
+	                    <li><a th:href="@{/service/reviewpage}">FeedBack</a></li>
 	                    <li><a th:href="@{/service/contact}">Contact</a></li>
-	                    <li><a href="logout">Logout</a></li>
+	                    <li><a href="#" onclick="openLogoutModal()">Logout</a></li>
 	                </ul>
 	            </nav>
 	        </div>
