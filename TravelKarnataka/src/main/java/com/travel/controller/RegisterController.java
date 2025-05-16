@@ -85,6 +85,13 @@ public class RegisterController {
 			
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+	    session.invalidate(); // destroy session
+	    return "redirect:/travel/login?logout"; // redirect to login with message
+	}
+
+	
 	
 	
 	
