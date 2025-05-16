@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>Contact Us | Travel Karnataka</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
@@ -14,111 +13,350 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        body {
-            background-image: url('https://tse4.mm.bing.net/th?id=OIP.RDYFfQhkzQRhcgW0LI_N0AHaCY&pid=Api&P=0&h=180');
-            background-repeat: no-repeat;
-            background-size: cover;
+        .body {
+            line-height: 1.6;
+            color: #333;
         }
 
-        form {
-            height: 540px;
-            width: 400px;
-            background-color: rgba(255, 255, 255, 0.713);
-            box-shadow: 0 0 20px black;
-            position: relative;
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .navbar {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+      
+        /* Contact Section */
+        .contact-container {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: red;
+        }
+
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: red;
+            box-shadow: 0 0 0 3px rgba(209, 0, 0, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: #d10000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #a30000;
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: red;
+            color: white;
+            padding: 50px 0 20px;
             margin-top: 40px;
-            margin-left: 550px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            padding-left: 5px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+        }
+
+        /* Modal */
+        .modal1 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content1 {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
         }
 
-        input {
-            padding: 10px;
-            border-radius: 15px;
-            width: 80%;
-            border: 2px solid black;
-        }
-
-        input:focus, button:focus {
-            outline: none;
-            border: 2px solid rgb(208, 148, 148);
-            box-shadow: 0 0 10px rgb(208, 145, 145);
-        }
-
-        .btn {
-            position: relative;
-            padding: 10px 20px;
-            font-size: 18px;
-            color: white;
-            background-color: #9C27B0;
-            border: 2px solid #9C27B0;
-            border-radius: 15px;
+        .modal-content1 button {
+            margin: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            overflow: hidden;
-            transition: color 0.4s;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background-color: rgb(208, 145, 145);
-            transition: width 0.5s;
-            z-index: 0;
-        }
+        .confirm-btn1 { background-color: #10b981; color: white; }
+        .close-btn1 { background-color: #9ca3af; color: white; }
 
-        .btn:hover::before, .btn:hover::after {
-            width: 100%;
-        }
-
-        .btn:hover {
-            color: white;
-        }
-
-        .btn span {
-            position: relative;
-            z-index: 1;
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-column {
+                flex: 100%;
+                padding: 0;
+            }
         }
     </style>
 </head>
+<body class="body">
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+	                    <li><a href="">Bookings</a></li>
+	                    <li><a th:href="@{/divya/statuspage}">Status</a></li>
+	                    <li><a th:href="@{/service/reviewpage}">FeedBack</a></li>
+	                    <li><a th:href="@{/service/contact}">Contact</a></li>
+	                    <li><a href="#" onclick="openLogoutModal()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<body>
 
-<!-- Replace Header include with Thymeleaf fragment -->
-<!-- <div th:replace="fragments/header :: header"></div> -->
+    <!-- Contact Form Section -->
+    <section class="contact-container container">
+        <h2 class="section-title">Contact Form</h2>
+        
+        <!-- Status Message -->
+        <div th:if="${msg}" th:text="${msg}" class="d-none" id="status-message" style="text-align : center;"></div>
+        
+        <form class="contact-form" action="submit" method="post">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${name}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" th:value="${email}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" th:value="${phone}">
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea class="form-control" id="message" name="message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+        </form>
+    </section>
 
-<!-- Show alert if status is present -->
-<div th:if="${status}">
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>TRAVEL KARNATAKA</h3>
+                <p>We are passionate about showcasing the beauty of Karnataka. From heritage sites to natural wonders, we create unforgettable travel experiences.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/packages">Packages</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 123 MG Road, Bangalore, Karnataka</p>
+                    <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@travelkarnataka.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 Travel Karnataka. All Rights Reserved. | Designed with 💛 for Karnataka Tourism</p>
+        </div>
+    </footer>
+
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal1">
+        <div class="modal-content1">
+            <p>Are you sure you want to logout?</p>
+            <form method="get" th:action="@{/travel/logout}">
+                <button type="submit" class="confirm-btn1">Yes, Logout</button>
+                <button type="button" class="close-btn1" onclick="closeLogoutModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SweetAlert for status messages -->
+    <div th:if="${status}">
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Message',
+                text: document.getElementById('status-message').textContent
+            });
+        </script>
+    </div>
+
     <script>
-        Swal.fire({
-            icon: 'info',
-            title: 'Message',
-           /*  text: [[${msg}]] */ 
-        });
+        function openLogoutModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeLogoutModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
     </script>
-</div>
-
-<form action="submit" method="post">
-    <br><br>
-    <div th:if="${msg}" th:text="${msg}" class="d-none" id="status-message">[[${msg}]]</div>
-    <h1 style="color: black;">Contact Us</h1><br>
-
-    <input type="text" placeholder="Name" name="name" th:value="${name}" required><br><br>
-
-    <input type="email" placeholder="Email" name="email" id="email" th:value="${email}" required><br><br>
-
-    <input type="tel" placeholder="Phone" name="phone" th:value="${phone}" id="phone"><br><br>
-
-    <input type="text" placeholder="Subject" name="subject" required><br><br>
-
-    <input type="text" placeholder="Message" name="message" required><br><br>
-
-    <input type="submit" class="btn" name="Contact" value="Contact">
-</form>
-
 </body>
 </html>

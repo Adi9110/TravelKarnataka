@@ -97,19 +97,19 @@ public class BookController {
 	}
 	
 	@GetMapping("/getUserBookings")
-	public String getUserBookings(@RequestParam int id, HttpSession session, Model model) {
+	public String getUserBookings(@RequestParam(required=false) Integer id, HttpSession session, Model model) {
 
 	    if (session.getAttribute("uname") == null) {
 	        model.addAttribute("msg", "please login");
 	        return "login";
 	    }
 
-	    PackageEntity pkg = ps.findPackageById(id);
-
-	    if (pkg == null) {
-	        model.addAttribute("msg", "package is not available");
-	        return "userHome";
-	    }
+//	    PackageEntity pkg = ps.findPackageById(id);
+//
+//	    if (pkg == null) {
+//	        model.addAttribute("msg", "package is not available");
+//	        return "userHome";
+//	    }
 
 	    String userEmail = (String) session.getAttribute("umail");
 	    List<BookingEntity> bookings = bs.getBookingsByEmail(userEmail);
@@ -121,7 +121,7 @@ public class BookController {
 
 	    model.addAttribute("bookings", bookings);
 
-	    return "bookings";
+	    return "userBookings";
 	}
 
 	@DeleteMapping("/cancelBooking")

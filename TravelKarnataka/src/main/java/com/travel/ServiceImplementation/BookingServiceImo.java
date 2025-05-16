@@ -49,6 +49,12 @@ public class BookingServiceImo implements BookingService {
 		return bookings.isEmpty() ? Collections.emptyList() : bookings;
 	}
 
+	@Override
+	public void updateBooking(BookingEntity b) {
+		// TODO Auto-generated method stub
+		br.save(b);
+	}
+
 
 
 }

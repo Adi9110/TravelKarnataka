@@ -2,6 +2,7 @@ package com.travel.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.travel.entity.BookingEntity;
 import com.travel.entity.PackageEntity;
+import com.travel.entity.RegisterEntity;
+import com.travel.service.BookingService;
 import com.travel.service.PackageService;
+import com.travel.service.RegisterService;
 
 
 @Controller
@@ -25,6 +30,12 @@ public class AdminController {
 
 	@Autowired
 	private PackageService pservice;
+	
+	@Autowired
+	private BookingService bservice;
+	
+	@Autowired
+	private RegisterService registerService;
 	
 	@GetMapping("/home")
 	public String getAdminpage() {
@@ -105,7 +116,42 @@ public class AdminController {
 		redirectAttributes.addFlashAttribute("successMessage", "Package Deleted Successfully!");
 		return "redirect:/admin/viewPackages";
 	}
+	
+	
+	@GetMapping("/acceptBooking/{id}")
+	public String acceptBooking(@PathVariable Integer id, Model model,RedirectAttributes redirectAttributes) {
 		
+		Optional<BookingEntity> booking = bservice.getBooking(id);
+		
+		if(booking.isPresent()) {
+			BookingEntity acceptBooking = booking.get();
+			acceptBooking.setStatus("accepted");
+			bservice.updateBooking(acceptBooking);	
+	    }
+		return "redirect:/booking/getAllBookings";
+	}
+	
+	@GetMapping("/rejectBooking/{id}")
+	public String rejectBooking(@PathVariable Integer id, Model model,RedirectAttributes redirectAttributes) {
+		
+		Optional<BookingEntity> booking = bservice.getBooking(id);
+		
+		if(booking.isPresent()) {
+			BookingEntity acceptBooking = booking.get();
+			acceptBooking.setStatus("rejected");
+			bservice.updateBooking(acceptBooking);	
+	    }
+		return "redirect:/booking/getAllBookings";
+	}
+	
+   @GetMapping("/deleteUser/{id}")
+   public String deleteUser(@PathVariable Integer id, Model model) {
+	   
+	   RegisterEntity registerEntity = registerService.getUserById(id);
+	   registerService.deleteUserById(id);
+	   return "redirect:/user/getAllCustomers";
+	   
+   }
 }
 	
 	

@@ -12,6 +12,8 @@ public interface BookingService {
 	
 	int addBooking(BookingEntity be);
 	
+	void updateBooking(BookingEntity b);
+	
 	List<BookingEntity> getBookingsByEmail(String email);
 	
 	Optional<BookingEntity> getBooking(int id);

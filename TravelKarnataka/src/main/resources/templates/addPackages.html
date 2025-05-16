@@ -233,10 +233,11 @@
     </div>
     
     <div class="sidebar-menu">
-      <a href="/admin/home"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
       <a href="/admin/viewPackages"><i class="fas fa-suitcase"></i> Packages</a>
-      <a href="/admin/addPackages" class="active"><i class="fas fa-calendar-check"></i> Add Packages</a>
-      <a href="#"><i class="fas fa-users"></i> Customers</a>
+      <a th:href="@{/admin/addPackages}"><i class="fas fa-calendar-check"></i>Add Packages</a>
+      <a th:href="@{/booking/getAllBookings}"><i class="fas fa-users"></i>Bookings</a>
+      <a th:href="@{/user/getAllCustomers}"><i class="fas fa-users"></i>Customers</a>
       <a href="#" onclick="openLogoutModal()"><i class="fas fa-sign-out-alt"></i>Logout</a>
     </div>
   </div>

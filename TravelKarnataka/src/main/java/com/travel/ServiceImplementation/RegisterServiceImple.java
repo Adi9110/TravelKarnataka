@@ -1,5 +1,7 @@
 package com.travel.ServiceImplementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,28 @@ public class RegisterServiceImple implements RegisterService {
 	        return user;
 	    }
 	    return null;
+	}
+
+	@Override
+	public List<RegisterEntity> getAllUsers() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
+
+	@Override
+	public RegisterEntity getUserById(Integer id) {
+		// TODO Auto-generated method stub
+		return repo.findById(id).get();
+	}
+
+	@Override
+	public void deleteUserById(Integer id) {
+		// TODO Auto-generated method stub
+		RegisterEntity user = repo.findById(id).get();
+		
+		if(user!=null) {
+			repo.deleteById(id);
+		}
 	}
 
 }

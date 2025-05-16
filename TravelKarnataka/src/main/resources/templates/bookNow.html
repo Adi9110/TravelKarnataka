@@ -364,12 +364,13 @@
             <div class="logo"><span style="color: red;">TRAVEL KARNATAKA</span></div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/bookings">Bookings</a></li>
-                    <li><a href="/feedback">FeedBack</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
+	                    <li><a href="#home">Home</a></li>
+	                    <li><a th:href="@{/booking/getUserBookings}">Bookings</a></li>
+	                    <li><a th:href="@{/divya/statuspage}">Status</a></li>
+	                    <li><a th:href="@{/service/reviewpage}">FeedBack</a></li>
+	                    <li><a th:href="@{/service/contact}">Contact</a></li>
+	                    <li><a href="#" onclick="openLogoutModal()">Logout</a></li>
+	                </ul>
             </nav>
         </div>
     </header>
